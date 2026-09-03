@@ -7,8 +7,6 @@ class TopoTools < Formula
   sha256 "ca0694259f8fe9a691b5b4abc889a323ea71afd4c54b1ead5a887b89ab9d8167"
   license "MIT"
 
-  depends_on "cmake" => :build
-  depends_on "ninja" => :build
   depends_on "libyaml"
   depends_on "python@3.14"
 
@@ -17,9 +15,11 @@ class TopoTools < Formula
     sha256 "ba0d2089de75ea0310e2dde03160e6ca10009947fb95a182f9b54021bb272e34"
   end
 
+  # Pinned to a prebuilt wheel, not the sdist; topo-tools-py's homebrew-tap
+  # workflow keeps this in sync on every version bump.
   resource "duckdb" do
-    url "https://files.pythonhosted.org/packages/7d/19/e57151753576373c6696a12022648546cca6038e8833fda2908ee2342d9b/duckdb-1.5.5.tar.gz"
-    sha256 "72f33ee57ca7595b23957671a2cc7f7fe2be0ecc2d68f63abedcfcaa3a5c1238"
+    url "https://files.pythonhosted.org/packages/3e/56/12c65bfa2d2605b81981b264788891bcf11ec72227889554cead5d8d13b9/duckdb-1.5.5-cp314-cp314-macosx_10_15_universal2.whl"
+    sha256 "8e6413dd40facb7b8ab21bd844450cd8f549b29e138635be9cf090ef4d2049e2"
   end
 
   resource "psutil" do
@@ -33,10 +33,20 @@ class TopoTools < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_install_with_resources without: "duckdb"
+
+    # duckdb's wheel isn't a py3-none-any wheel, so Homebrew's automatic
+    # resource routing can't install it; stage and pip-install it directly.
+    resource("duckdb").stage do
+      whl = Pathname.pwd/Dir["*.whl"].first
+      raise "Expected a .whl file in the staged duckdb resource, found: #{Pathname.pwd.children}" unless whl.exist?
+
+      venv.pip_install whl
+    end
   end
 
   test do
     assert_match "Usage", shell_output("#{bin}/topo-tools --help")
+    system libexec/"bin/python3", "-c", "import duckdb; print(duckdb.__version__)"
   end
 end
