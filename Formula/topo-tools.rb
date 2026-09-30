@@ -15,8 +15,6 @@ class TopoTools < Formula
     sha256 "ba0d2089de75ea0310e2dde03160e6ca10009947fb95a182f9b54021bb272e34"
   end
 
-  # Pinned to a prebuilt wheel, not the sdist; topo-tools-py's homebrew-tap
-  # workflow keeps this in sync on every version bump.
   resource "duckdb" do
     url "https://files.pythonhosted.org/packages/3e/56/12c65bfa2d2605b81981b264788891bcf11ec72227889554cead5d8d13b9/duckdb-1.5.5-cp314-cp314-macosx_10_15_universal2.whl"
     sha256 "8e6413dd40facb7b8ab21bd844450cd8f549b29e138635be9cf090ef4d2049e2"
@@ -35,8 +33,8 @@ class TopoTools < Formula
   def install
     venv = virtualenv_install_with_resources without: "duckdb"
 
-    # duckdb's wheel isn't a py3-none-any wheel, so Homebrew's automatic
-    # resource routing can't install it; stage and pip-install it directly.
+    # duckdb is pinned to a platform wheel (re-pinned by topo-tools-py's tap workflow on each bump),
+    # which Homebrew's resource routing can't install; stage and pip-install it directly.
     resource("duckdb").stage do
       whl = Pathname.pwd/Dir["*.whl"].first
       raise "Expected a .whl file in the staged duckdb resource, found: #{Pathname.pwd.children}" unless whl.exist?
