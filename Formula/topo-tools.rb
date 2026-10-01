@@ -3,12 +3,26 @@ class TopoTools < Formula
 
   desc "DuckDB-powered geospatial topology utilities"
   homepage "https://github.com/OCHA-DAP/topo-tools-py"
-  url "https://files.pythonhosted.org/packages/ff/0f/9efcfd72b23a48fc1595165d74a65001f818ba4a955c1e0eea5cbdc3a7da/topo_tools-0.10.2.tar.gz"
-  sha256 "a400e0da93f2d5455cf0a9a60c802d8604f0db2b8b46209ed7d52f89b2dafa7a"
+  url "https://files.pythonhosted.org/packages/bf/5f/2d32732b078eb5d33d702a5ec078c5724815e23ac7957daac41ab98cef96/topo_tools-0.11.0.tar.gz"
+  sha256 "4566a9b2173621346d739e777bfc2001d4bdace93be0c0689618be6fb0f5eb44"
   license "MIT"
 
-  depends_on "libyaml"
   depends_on "python@3.14"
+
+  on_linux do
+    on_intel do
+      resource "duckdb-linux" do
+        url "https://files.pythonhosted.org/packages/ef/a5/6f8099d9a5a02ddff89e5c85875df3465054845b0920fb0703fbdf8dd2ec/duckdb-1.5.6-cp314-cp314-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl"
+        sha256 "19c5e485e59613b8878d1670bcaa7a010f53c5a4da5ae8e08863e5e529ca6182"
+      end
+    end
+    on_arm do
+      resource "duckdb-linux" do
+        url "https://files.pythonhosted.org/packages/9d/08/cc510a7952aba69d5cdca17f3ef61c95713d86143f2ee9aa3e097d38f50b/duckdb-1.5.6-cp314-cp314-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl"
+        sha256 "1052b8050ef5696e2c0d8c836949c72f3dd11f0690466acbea739613e8e2750b"
+      end
+    end
+  end
 
   resource "click" do
     url "https://files.pythonhosted.org/packages/c7/0e/7fa0ef50764b67090eca4114772a2abf8b6148198475e54c660b97caeee6/click-8.5.0.tar.gz"
@@ -25,17 +39,13 @@ class TopoTools < Formula
     sha256 "0746f5f8d406af344fd547f1c8daa5f5c33dbc293bb8d6a16d80b4bb88f59372"
   end
 
-  resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd7729d542c61a4d537767a59645b82a0b521206e1e25c2/pyyaml-6.0.3.tar.gz"
-    sha256 "d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f"
-  end
-
   def install
-    venv = virtualenv_install_with_resources without: "duckdb"
+    duckdb_resources = OS.mac? ? ["duckdb"] : ["duckdb", "duckdb-linux"]
+    venv = virtualenv_install_with_resources without: duckdb_resources
 
-    # duckdb is pinned to a platform wheel (re-pinned by topo-tools-py's tap workflow on each bump),
-    # which Homebrew's resource routing can't install; stage and pip-install it directly.
-    resource("duckdb").stage do
+    # duckdb is pinned to platform wheels (re-pinned by topo-tools-py's tap workflow on each bump),
+    # which Homebrew's resource routing can't install; stage and pip-install the one for this OS.
+    resource(duckdb_resources.last).stage do
       whl = Pathname.pwd/Dir["*.whl"].first
       raise "Expected a .whl file in the staged duckdb resource, found: #{Pathname.pwd.children}" unless whl.exist?
 
