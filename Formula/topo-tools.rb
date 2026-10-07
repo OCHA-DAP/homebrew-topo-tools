@@ -3,8 +3,8 @@ class TopoTools < Formula
 
   desc "DuckDB-powered geospatial topology utilities"
   homepage "https://github.com/OCHA-DAP/topo-tools-py"
-  url "https://files.pythonhosted.org/packages/99/ca/781d68f4f305d65ebd0d22f715cf3eb1efd1837dd5198b6eb3170762fd03/topo_tools-0.13.0.tar.gz"
-  sha256 "c92e907509835740ef14eef79f29dc7748e8b2261c4097828292965d64cc9dd0"
+  url "https://files.pythonhosted.org/packages/5c/e3/f57b6f0111b78a9e4fd91b104a2e4ebd961160fb9af2cf64ea2178e21301/topo_tools-0.16.0.tar.gz"
+  sha256 "88157cf0cfdf1d40c91d3ffe16d13893d4624f6876150259d5f2c0538919b934"
   license "MIT"
 
   depends_on "python@3.14"
