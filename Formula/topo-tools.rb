@@ -2,7 +2,7 @@ class TopoTools < Formula
   include Language::Python::Virtualenv
 
   desc "DuckDB-powered geospatial topology utilities"
-  homepage "https://github.com/OCHA-DAP/topo-tools-py"
+  homepage "https://github.com/OCHA-DAP/topo-tools"
   url "https://files.pythonhosted.org/packages/cd/d6/042864a39eabfcebb218e1f06d5952b17c43b49a1e848ddcfb7ce2ecbdd3/topo_tools-0.17.0.tar.gz"
   sha256 "3d70af9a3c7587db7ce1ac138003638ff490e8b44ec6f7ae22eccb8a9a32f3f1"
   license "MIT"
@@ -43,7 +43,7 @@ class TopoTools < Formula
     duckdb_resources = OS.mac? ? ["duckdb"] : ["duckdb", "duckdb-linux"]
     venv = virtualenv_install_with_resources without: duckdb_resources
 
-    # duckdb is pinned to platform wheels (re-pinned by topo-tools-py's tap workflow on each bump),
+    # duckdb is pinned to platform wheels (re-pinned by topo-tools' tap workflow on each bump),
     # which Homebrew's resource routing can't install; stage and pip-install the one for this OS.
     resource(duckdb_resources.last).stage do
       whl = Pathname.pwd/Dir["*.whl"].first
