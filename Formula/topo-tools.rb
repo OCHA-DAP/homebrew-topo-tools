@@ -3,8 +3,8 @@ class TopoTools < Formula
 
   desc "DuckDB-powered geospatial topology utilities"
   homepage "https://github.com/OCHA-DAP/topo-tools"
-  url "https://files.pythonhosted.org/packages/cd/d6/042864a39eabfcebb218e1f06d5952b17c43b49a1e848ddcfb7ce2ecbdd3/topo_tools-0.17.0.tar.gz"
-  sha256 "3d70af9a3c7587db7ce1ac138003638ff490e8b44ec6f7ae22eccb8a9a32f3f1"
+  url "https://files.pythonhosted.org/packages/ce/3c/b01456ef4e25701855366f9fbed3559f28513a928a0c1cb870434e1fd596/topo_tools-0.18.0.tar.gz"
+  sha256 "d9328aff2ab5aa9770155ad1f90374bcebf7c8828bf5593466102d1868a17146"
   license "MIT"
 
   depends_on "python@3.14"
@@ -12,14 +12,14 @@ class TopoTools < Formula
   on_linux do
     on_intel do
       resource "duckdb-linux" do
-        url "https://files.pythonhosted.org/packages/ef/a5/6f8099d9a5a02ddff89e5c85875df3465054845b0920fb0703fbdf8dd2ec/duckdb-1.5.6-cp314-cp314-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl"
-        sha256 "19c5e485e59613b8878d1670bcaa7a010f53c5a4da5ae8e08863e5e529ca6182"
+        url "https://files.pythonhosted.org/packages/cc/33/01ad2535ee897db2bad70cbc800655167c53afd0b955eed84f0759c2f417/duckdb-2.0.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+        sha256 "ab51ec57d329d6f3df37c0287b55d71c3fc07bb54b61d1afed09104f953b1431"
       end
     end
     on_arm do
       resource "duckdb-linux" do
-        url "https://files.pythonhosted.org/packages/9d/08/cc510a7952aba69d5cdca17f3ef61c95713d86143f2ee9aa3e097d38f50b/duckdb-1.5.6-cp314-cp314-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl"
-        sha256 "1052b8050ef5696e2c0d8c836949c72f3dd11f0690466acbea739613e8e2750b"
+        url "https://files.pythonhosted.org/packages/92/4a/985fb9d93d7f9f8e82092ddfe05ec8c9a1d0df7bdb0f562a10ced30e3e8f/duckdb-2.0.0-cp312-abi3-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl"
+        sha256 "e38daf0acbad9de7ce892d402b68409519291ee16af3c2cba85ace3b085c7eaa"
       end
     end
   end
@@ -30,8 +30,8 @@ class TopoTools < Formula
   end
 
   resource "duckdb" do
-    url "https://files.pythonhosted.org/packages/fb/62/a8a30a4c6b94c0861d348ed5633b963f6745a5525527530f02f3c1a7c931/duckdb-1.5.6-cp314-cp314-macosx_10_15_universal2.whl"
-    sha256 "aa21d2ad803b2524326e8622d7d96b2bb1ff1d5b60368e1978ee805df9c21fb3"
+    url "https://files.pythonhosted.org/packages/41/28/1fb52f9ea10205a55a07c32e37cd4fd68fa9d1dc2520a12405ec9bb59cac/duckdb-2.0.0-cp312-abi3-macosx_10_15_universal2.whl"
+    sha256 "cb1cc30318397c3bcffa6b683196293698052588de3c1ba1e144ba0c72560ce9"
   end
 
   resource "psutil" do
