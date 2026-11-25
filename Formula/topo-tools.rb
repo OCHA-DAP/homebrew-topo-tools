@@ -3,8 +3,8 @@ class TopoTools < Formula
 
   desc "DuckDB-powered geospatial topology utilities"
   homepage "https://github.com/OCHA-DAP/topo-tools"
-  url "https://files.pythonhosted.org/packages/44/10/ffe21ef5cf75fbe1cabc20ca02a7ca5504334b7102a9828fbaac9b631f4f/topo_tools-0.25.0.tar.gz"
-  sha256 "66b7bfe7a25025b3ce814bf53095aa753a386bec6067c5c76ca637ee9c0a7950"
+  url "https://files.pythonhosted.org/packages/ac/2a/b34ba6ac71b0a90a65bad1c8fd373083e0b1c9bbafafffd751b06f1ca306/topo_tools-0.26.1.tar.gz"
+  sha256 "9a0ff315a9e7281ac0f4963e576c725c94a86a644f01e9e4778e8b65c1db0465"
   license "MIT"
 
   depends_on "python@3.14"
@@ -30,8 +30,8 @@ class TopoTools < Formula
   end
 
   resource "duckdb" do
-    url "https://files.pythonhosted.org/packages/04/85/8ab6983bde86459bc7cc6a9b0d6bd5eaafa5a7f73a4bb492126dc9971b68/duckdb-2.0.1-cp312-abi3-macosx_10_15_universal2.whl"
-    sha256 "4c70c88a9cfb4dc6d4b1892da39a2974e6b51b67845cc12e192a99ec4e41b211"
+    url "https://files.pythonhosted.org/packages/49/d8/ebb8ff07c617d1a8c25e7f7718a6955d2d5f7e539ec5219be1da478c0a42/duckdb-2.0.1.tar.gz"
+    sha256 "5b3f493140e35b75298ee0fc606d98e3065e8601e64fe81b09326de7a6fd68e0"
   end
 
   resource "psutil" do
