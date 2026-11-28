@@ -30,8 +30,8 @@ class TopoTools < Formula
   end
 
   resource "duckdb" do
-    url "https://files.pythonhosted.org/packages/49/d8/ebb8ff07c617d1a8c25e7f7718a6955d2d5f7e539ec5219be1da478c0a42/duckdb-2.0.1.tar.gz"
-    sha256 "5b3f493140e35b75298ee0fc606d98e3065e8601e64fe81b09326de7a6fd68e0"
+    url "https://files.pythonhosted.org/packages/04/85/8ab6983bde86459bc7cc6a9b0d6bd5eaafa5a7f73a4bb492126dc9971b68/duckdb-2.0.1-cp312-abi3-macosx_10_15_universal2.whl"
+    sha256 "4c70c88a9cfb4dc6d4b1892da39a2974e6b51b67845cc12e192a99ec4e41b211"
   end
 
   resource "psutil" do
